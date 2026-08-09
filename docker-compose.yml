@@ -8,11 +8,11 @@ services:
     restart: unless-stopped
 
     ports:
-      - "443:443"
+      - "444:444"
 
     environment:
       API_HOST: "0.0.0.0"
-      API_PORT: "443"
+      API_PORT: "444"
       MONGO_URI: "${MONGO_URI}"
       MONGO_DB: "${MONGO_DB}"
       JWT_SECRET: "${JWT_SECRET}"
