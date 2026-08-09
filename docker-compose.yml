@@ -1,0 +1,18 @@
+services:
+  pebackend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: pebackend
+    restart: unless-stopped
+
+    ports:
+      - "8000:8000"
+
+    environment:
+      API_HOST: "0.0.0.0"
+      API_PORT: "8000"
+      MONGO_URI: "${MONGO_URI}"
+      MONGO_DB: "${MONGO_DB}"
+      JWT_SECRET: "${JWT_SECRET}"

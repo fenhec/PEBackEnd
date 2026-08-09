@@ -1,0 +1,6 @@
+fastapi
+uvicorn[standard]
+motor
+python-dotenv
+PyJWT
+bcrypt
