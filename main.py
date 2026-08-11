@@ -16,11 +16,11 @@ load_dotenv()
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger("PointExchange")
 
-MONGO_URI = os.getenv("MONGO_URI")
-DB_NAME = os.getenv("MONGO_DB", "DB_NAME")
+MONGO_URI = os.environ["MONGO_URI"]
+DB_NAME = os.environ["MONGO_DB"]
+JWT_SECRET = os.getenv("JWT_SECRET")
 API_HOST = os.getenv("API_HOST", "0.0.0.0")
 API_PORT = int(os.getenv("API_PORT", "8000"))
-JWT_SECRET = os.getenv("JWT_SECRET")
 ALGORITHM = "HS256"
 
 print(MONGO_URI)
