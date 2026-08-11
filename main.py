@@ -23,6 +23,8 @@ API_PORT = int(os.getenv("API_PORT", "8000"))
 JWT_SECRET = os.getenv("JWT_SECRET")
 ALGORITHM = "HS256"
 
+print(MONGO_URI)
+print(DB_NAME)
 
 # 2. REAL-TIME CONNECTION MANAGER
 class ConnectionManager:
