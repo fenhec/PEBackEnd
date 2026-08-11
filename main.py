@@ -20,7 +20,7 @@ MONGO_URI = os.getenv("MONGO_URI")
 DB_NAME = os.getenv("MONGO_DB")
 API_HOST = os.getenv("API_HOST", "0.0.0.0")
 API_PORT = int(os.getenv("API_PORT", "8000"))
-JWT_SECRET = os.getenv("JWT_SECRET", "point-exchange-secure-secret-123")
+JWT_SECRET = os.getenv("JWT_SECRET")
 ALGORITHM = "HS256"
 
 
