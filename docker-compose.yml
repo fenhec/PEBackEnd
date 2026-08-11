@@ -15,5 +15,5 @@ services:
       API_PORT: "8088"
       MONGO_URI: "${MONGO_URI}"
       MONGO_DB: "${MONGO_DB}"
-      DB_NAME: "${MONGO_DB}"
+      DB_NAME: "${DB_NAME}"
       JWT_SECRET: "${JWT_SECRET}"
