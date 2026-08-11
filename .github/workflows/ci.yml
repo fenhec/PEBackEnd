@@ -2,7 +2,7 @@ name: PE Backend - Python
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ["main", "master"]
 
 permissions:
   contents: read
@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: [self-hosted, linux, arm64, build]
 
     steps:
     - name: Check out the repository
@@ -23,6 +23,7 @@ jobs:
         echo API_PORT=${{ secrets.API_PORT }} >> .env
         echo JWT_SECRET=${{ secrets.JWT_SECRET }} >> .env
         echo MONGO_DB=${{ secrets.MONGO_DB }} >> .env
+        echo DB_NAME=${{ secrets.DB_NAME }} >> .env
         echo MONGO_URI=${{ secrets.MONGO_URI }} >> .env
         cat .env
 
