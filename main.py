@@ -17,7 +17,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(me
 logger = logging.getLogger("PointExchange")
 
 MONGO_URI = os.getenv("MONGO_URI")
-DB_NAME = os.getenv("MONGO_DB")
+DB_NAME = os.getenv("MONGO_DB", "DB_NAME")
 API_HOST = os.getenv("API_HOST", "0.0.0.0")
 API_PORT = int(os.getenv("API_PORT", "8000"))
 JWT_SECRET = os.getenv("JWT_SECRET")
@@ -25,6 +25,8 @@ ALGORITHM = "HS256"
 
 print(MONGO_URI)
 print(DB_NAME)
+print(API_HOST)
+print(MONGO_URI)
 
 # 2. REAL-TIME CONNECTION MANAGER
 class ConnectionManager:
