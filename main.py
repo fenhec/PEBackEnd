@@ -22,6 +22,7 @@ logger = logging.getLogger("PointExchange")
 # API_HOST = os.getenv("API_HOST", "0.0.0.0")
 # API_PORT = int(os.getenv("API_PORT", "8088"))
 MONGO_URI="mongodb://192.168.1.118:27018/"
+API_HOST="0.0.0.0"
 DB_NAME = "pointexchange"
 API_PORT = 8088
 ALGORITHM = "HS256"
