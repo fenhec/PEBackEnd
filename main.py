@@ -21,6 +21,7 @@ logger = logging.getLogger("PointExchange")
 # JWT_SECRET = os.getenv("JWT_SECRET")
 # API_HOST = os.getenv("API_HOST", "0.0.0.0")
 # API_PORT = int(os.getenv("API_PORT", "8088"))
+ALGORITHM = "HS256"
 MONGO_URI="mongodb://192.168.1.118:27018/"
 API_HOST="0.0.0.0"
 DB_NAME = "pointexchange"
@@ -113,8 +114,15 @@ async def lifespan(app: FastAPI):
     client.close()
 
 
-app = FastAPI(title="PointExchange Optimized Backend", lifespan=lifespan)
+# app = FastAPI(title="PointExchange Optimized Backend", lifespan=lifespan)
 
+app = FastAPI(
+    title="PointExchange Optimized Backend",
+    lifespan=lifespan,
+    docs_url=None,
+    redoc_url=None,
+    openapi_url=None
+)
 
 # 5. WEBSOCKET ENDPOINT
 @app.websocket("/ws/{user_id}")
