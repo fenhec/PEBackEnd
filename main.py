@@ -311,7 +311,7 @@ async def handle_post(request: Request):
         data = await request.json()
         action = data.get("action")
         now = int(time.time() * 1000)
-        logger.info(f"POST: {action}")
+        logger.info(f"REQUEST: {action}")
 
         current_user = None
         if action != "registerAdmin":
@@ -326,7 +326,7 @@ async def handle_post(request: Request):
             return PlainTextResponse(content="Forbidden", status_code=403)
 
         if current_user:
-            logger.info(f"AUDIT: user={current_user.get('name')} id={current_user.get('id')} action={action}")
+            logger.info(f"USER: {current_user.get('name')} ({current_user.get('id')})")
 
         if action in ["registerAdmin", "addUser"]:
             if await db.users.find_one({"email": data.get("email", "").lower().strip()}): return PlainTextResponse(
@@ -406,6 +406,7 @@ async def handle_post(request: Request):
                 await db.users.update_one({"id": data["userId"]},
                                           {"$inc": {"points": int(ach["points"])}, "$set": {"updatedAt": now}})
                 await manager.notify_user(data["userId"], "REFRESH")
+                logger.info(f"AUDIT: {current_user.get('name')} awarded '{ach.get('title')}' (+{abs(int(ach.get('points', 0)))} points) to {target_user.get('name')}")
 
         elif action == "addReward":
             if not same_group(current_user, data.get("groupId")):
@@ -471,6 +472,15 @@ async def handle_post(request: Request):
                     await db.users.update_one({"id": req_doc["userId"]},
                                               {"$inc": {"points": -abs(int(reward["pointCost"]))},
                                                "$set": {"updatedAt": now}})
+                    logger.info(
+                        f"AUDIT: {current_user.get('name')} approved reward '{reward.get('title')}' "
+                        f"for {target_user.get('name')} (-{abs(int(reward.get('pointCost', 0)))} points)"
+                    )
+                else:
+                    logger.info(
+                        f"AUDIT: {current_user.get('name')} rejected reward request '{reward.get('title')}' "
+                        f"for {target_user.get('name')}"
+                    )
 
         elif action == "editGroup":
             if data.get("id") != current_user.get("groupId"):
@@ -498,6 +508,7 @@ async def handle_post(request: Request):
                                           "performedBy": current_user.get("name")})
             await db.users.update_one({"id": data["userId"]}, {"$inc": {"points": val}, "$set": {"updatedAt": now}})
             await manager.notify_user(data["userId"], "REFRESH")
+            logger.info(f"AUDIT: {current_user.get('name')} changed {target_user.get('name')}\'s points by {val:+d} ({data.get('reason', 'Manual Adjustment')})")
 
         elif action == "delete":
             col_map = {"Tags": db.tags, "Achievements": db.achievements, "Rewards": db.rewards, "Users": db.users}
