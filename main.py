@@ -28,9 +28,6 @@ API_HOST = os.getenv("API_HOST", "0.0.0.0")
 DB_NAME = os.getenv("MONGO_DB", "pointexchange")
 API_PORT = int(os.getenv("API_PORT", "8088"))
 ALGORITHM = "HS256"
-JWT_SECRET = os.getenv("JWT_SECRET")
-if not JWT_SECRET:
-    raise RuntimeError("JWT_SECRET must be set in the server environment or .env file")
 JWT_SECRET="point_exchange_super_secure_and_very_long_secret_key_2026_!@#"
 
 # 2. REAL-TIME CONNECTION MANAGER
