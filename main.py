@@ -11,6 +11,7 @@ from fastapi.responses import PlainTextResponse, JSONResponse
 from motor.motor_asyncio import AsyncIOMotorClient
 from dotenv import load_dotenv
 
+
 # 1. LOGGING & CONFIG
 load_dotenv()
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
